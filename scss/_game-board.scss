@@ -1,0 +1,16 @@
+body {
+    background-color: pink;
+}
+
+.row {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 30px;
+}
+
+.box {
+    width: 150px;
+    height: 200px;
+    background-color: lightblue;
+    border: 2px solid rgb(245, 243, 146);
+}
