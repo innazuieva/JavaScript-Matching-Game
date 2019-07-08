@@ -4,13 +4,23 @@ body {
 .row {
   display: flex;
   justify-content: space-evenly;
-  padding: 30px; }
+  padding: 50px; }
 
-.box {
+img {
   width: 150px;
-  height: 200px;
-  background-color: lightblue;
   border: 2px solid #f5f392; }
+
+.card-back img {
+  position: relative;
+  overflow: hidden;
+  display: block; }
+
+.card-front img {
+  position: absolute;
+  z-index: 2;
+  transition: transform 0.3s ease-in; }
+  .open .card-front img {
+    z-index: -1; }
 
 html {
   box-sizing: border-box; }
