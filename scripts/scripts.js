@@ -119,11 +119,16 @@ class Game {
 
 
     handleClickedCard(element) {
+        if (element.hasClass('open')) {
+            console.log("Card is already opened")
+            return;
+        }
 
         this.clickCounter++;
 
         // Open Card
         element.addClass('open');
+        console.log(element)
 
         // Store in Array
         this.openCards.push(element);

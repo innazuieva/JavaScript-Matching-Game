@@ -1,25 +1,28 @@
-body {
-  background-color: pink; }
-
-.row {
-  display: flex;
-  justify-content: space-evenly;
-  padding: 50px; }
-
-img {
-  width: 150px;
-  border: 2px solid #f5f392; }
-
-.card-back img {
-  position: relative;
-  overflow: hidden;
-  display: block; }
-
-.card-front img {
-  position: absolute;
-  z-index: 2;
-  transition: transform 0.3s ease-in; }
-  .open .card-front img {
+body video.fullscreen {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%; }
+body .game-board {
+  position: fixed;
+  bottom: 0; }
+  body .game-board .row {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 50px; }
+  body .game-board img {
+    width: 150px;
+    border: 2px solid #f5f392; }
+  body .game-board .card-back img {
+    position: relative;
+    overflow: hidden;
+    display: block; }
+  body .game-board .card-front img {
+    position: absolute;
+    z-index: 2;
+    transition: transform 0.3s ease-in; }
+  body .game-board .open img {
     z-index: -1; }
 
 html {
