@@ -51,7 +51,10 @@ const gameState = {
     GAME: 'game'
 }
 
-const gameTimeOut = 45;
+const gameTimeOut = 35;
+const musicForGame = new Audio("../water-bubbles.mp3");
+musicForGame.loop = true;
+musicForGame.play();
 
 function convertTimeCounterToDisplayedValue(timeCounter) {
     return timeCounter > 9 ? "" + timeCounter : "0" + timeCounter;
@@ -64,9 +67,7 @@ class Game {
         this._setUpCards(); // line 85
         this._setUpGameStats(); // line 62
         this._updateGameState(gameState.START);
-
     }
-
 
     //  "_" - private method
 

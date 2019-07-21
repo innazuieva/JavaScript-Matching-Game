@@ -23,7 +23,8 @@
     <div class="pop-up-screen">
         <div id="start-game" class="pop-up start-game">
             <div class="pop-up-content">
-                <h1>Let's play a matching game! You have 45 seconds to match all cards.</h1>
+                <h1>Let's play an Underwater <span class='crossed-out'>Fetch</span>Match game! You have 35 seconds to
+                    match all cards.</h1>
                 <div class="buttons-start-finish">
                     <button id="start-button" class="start-game">Start</button>
                 </div>
@@ -58,7 +59,10 @@
 
 
     <!---------------------- Game Board ------------------------->
-    <!-- <video src="images/background-moving.mov" autoplay poster="#0"></video> -->
+    <div class="video-container">
+        <video src="images/background-moving.mov" autoplay loop muted poster="#0"></video>
+    </div>
+
 
     <div id="game-board" class="game-board">
 
@@ -67,6 +71,7 @@
 
         <div class="stats">
             <div id="turns" class="turns">Turns: </div>
+            <img id="logo" class="logo" src="images/logo.png" alt="Logo">
             <div id="time-counter" class="time-counter">Time: </div>
         </div>
 
@@ -207,13 +212,13 @@
         </div> -->
 
 
+    </div>
 
-
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-        <!-- <script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
         <script src="scripts/flip.js"></script> -->
-        <script src="scripts/scripts.js"></script>
+    <script src="scripts/scripts.js"></script>
 </body>
 
 <footer>

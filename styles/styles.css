@@ -1,13 +1,28 @@
 @import url("https://fonts.googleapis.com/css?family=Fredoka+One&display=swap");
 body {
-  font-family: 'Fredoka One', cursive; }
+  font-family: 'Fredoka One', cursive;
+  position: relative;
+  height: 100vh;
+  overflow: hidden; }
   body .hidden {
     display: none !important; }
+  body .video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1; }
+  body #logo {
+    border: none;
+    width: 25%; }
   body .pop-up-screen {
     width: 100vw;
     height: 100vh;
-    background-color: rgba(255, 255, 255, 0.822);
+    background-color: rgba(255, 255, 255, 0.63);
     position: relative; }
+    body .pop-up-screen .crossed-out {
+      text-decoration: line-through;
+      color: red; }
     body .pop-up-screen .pop-up {
       width: 500px;
       height: 300px;
@@ -43,19 +58,21 @@ body {
           margin: 20px; }
   body .game-board .stats {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     font-family: 'Fredoka One', cursive;
-    font-size: 2em; }
+    font-size: 2em;
+    padding: 50px 0;
+    color: white; }
   body .game-board .row {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     width: 90%;
     margin: auto;
-    margin-bottom: 50px;
-    padding: 50px; }
+    padding-bottom: 50px; }
   body .game-board img {
-    width: 25vh;
-    border-radius: 10px; }
+    width: 24vh;
+    border-radius: 10px;
+    border: 5px solid white; }
   body .game-board .card-back img {
     position: relative;
     overflow: hidden;
