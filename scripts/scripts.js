@@ -52,9 +52,16 @@ const gameState = {
 }
 
 const gameTimeOut = 35;
-const musicForGame = new Audio("../water-bubbles.mp3");
+
+
+const musicForGame = new Audio("../JavaScript-Matching-Game/water-bubbles.mp3");
 musicForGame.loop = true;
-musicForGame.play();
+const musicPlayPromise = musicForGame.play();
+if (musicPlayPromise !== null) {
+    musicPlayPromise.catch(() => {
+        musicForGame.play();
+    })
+}
 
 function convertTimeCounterToDisplayedValue(timeCounter) {
     return timeCounter > 9 ? "" + timeCounter : "0" + timeCounter;
