@@ -44,7 +44,18 @@ cards[11] = new Card('images/06.jpg', '06', 6);
 
 //----------------------------- Game Constructor ------------------------------------
 
+const gameState = {
+    START: 'start',
+    WIN: 'win',
+    TIMEOUT: 'timeout',
+    GAME: 'game'
+}
 
+const gameTimeOut = 45;
+
+function convertTimeCounterToDisplayedValue(timeCounter) {
+    return timeCounter > 9 ? "" + timeCounter : "0" + timeCounter;
+}
 
 class Game {
 
@@ -52,12 +63,49 @@ class Game {
         this._setUpElements(); // line 70
         this._setUpCards(); // line 85
         this._setUpGameStats(); // line 62
+        this._updateGameState(gameState.START);
+
     }
 
 
     //  "_" - private method
 
+    _updateGameState(gameState) {
+        this.gameState = gameState;
+        this._updateUIBasedOnGameState();
+    }
 
+
+    _updateUIBasedOnGameState() {
+
+        switch (this.gameState) {
+            case gameState.START:
+                console.log($('#win, #time-is-out, #game-board'));
+                $('#win').parent().addClass('hidden');
+                $('#game-board').addClass('hidden');
+                $('#time-is-out').parent().addClass('hidden');
+                $('#start-game').parent().removeClass('hidden');
+                break;
+            case gameState.GAME:
+                $('#win').parent().addClass('hidden');
+                $('#start-game').parent().addClass('hidden');
+                $('#time-is-out').parent().addClass('hidden');
+                $('#game-board').removeClass('hidden');
+                break;
+            case gameState.WIN:
+                $('#start-game').parent().addClass('hidden');
+                $('#game-board').addClass('hidden');
+                $('#time-is-out').parent().addClass('hidden');
+                $('#win').parent().removeClass('hidden');
+                break;
+            case gameState.TIMEOUT:
+                $('#start-game').parent().addClass('hidden');
+                $('#game-board').addClass('hidden');
+                $('#win').parent().addClass('hidden');
+                $('#time-is-out').parent().removeClass('hidden');
+                break;
+        }
+    }
 
     //------------------------------ Game Stats Function ------------------------------
 
@@ -66,7 +114,8 @@ class Game {
         this.clickCounter = 0;
         this.matches = 0;
         this.winningMatches = this.element.cards.length / 2;
-        this.counter = 45;
+        this.counter = gameTimeOut;
+        this._updateTotalClickCounter(0);
     }
 
 
@@ -107,9 +156,37 @@ class Game {
     // Calls _placeCards method
 
     init() {
+        console.log('from init')
+
         this._placeCards(this.cards, this.element.cards);
         this._setStats();
+        this._updateGameState(gameState.GAME);
     }
+
+
+
+
+    //---------------------------- Update UI for Total Click Counter ----------------------
+
+
+
+    _updateUIForTotalClickCounter() {
+        console.log("Current cLick counter = " + this.totalClickCounter);
+        $('#turns').html("Turns: " + this.totalClickCounter);
+    }
+
+
+
+
+    //---------------------------- Update Total Click Counter ----------------------
+
+
+
+    _updateTotalClickCounter(totalClickCounter) {
+        this.totalClickCounter = totalClickCounter;
+        this._updateUIForTotalClickCounter();
+    }
+
 
 
 
@@ -128,6 +205,8 @@ class Game {
         }
 
         this.clickCounter++;
+        this._updateTotalClickCounter(this.totalClickCounter + 1);
+
 
         // Open Card
         element.addClass('open');
@@ -156,6 +235,15 @@ class Game {
 
     _isMatched(card1, card2) {
 
+        // TODO: Remove
+        // this._endGame(gameState.WIN);
+        // return;
+
+        console.log("card#1 " +
+            card1)
+        console.log("card#2 " +
+            card2)
+
         if (card1.data('number') === card2.data('number')) {
             console.log(card2.data('number'));
             console.log("Cards matched with number: " + card2.data('number'));
@@ -168,7 +256,7 @@ class Game {
 
             if (this.matches === this.winningMatches) {
 
-                this._win();
+                this._endGame(gameState.WIN);
                 return; //Not to execute anything else
             }
 
@@ -197,36 +285,12 @@ class Game {
     //------------------------------ End Game Function ---------------------------
 
 
-    _endGame() {
-
-        setTimeout(function () {
-            $('#time-is-out').addClass('show');
-        }, 800);
-
-
-
-        // const restart = function () {
-        //     alert("Restart the Game?");
-        //     console.log(this);
-        //     this._reset();
-        // };
-        // const restartBindedToGame = restart.bind(this);
-        // setTimeout(restartBindedToGame, 2000);
-        //eto pisec!!!!!!!
+    _endGame(gameState) {
+        this._updateGameState(gameState)
     }
 
 
 
-
-    //------------------------------ Win Function ---------------------------
-
-
-    _win() {
-
-        setTimeout(function () {
-            $('#win').addClass('show');
-        }, 800);
-    }
 
 
 
@@ -234,13 +298,15 @@ class Game {
 
 
     _reset() {
+        console.log('from reset')
         this.element.cards.each(function () {
             $(this).removeClass('open');
         });
         this.openCards = [];
         this.matches = 0;
-
-
+        this.clickCounter = 0;
+        this._updateTotalClickCounter(0);
+        this.counter = gameTimeOut;
 
         this.element.cards.each(function (i) {
 
@@ -254,16 +320,6 @@ class Game {
         this.init();
 
     }
-
-
-
-
-    //--------------------------------- Finish -----------------------------------
-
-
-    // _finish() {
-
-    // }
 
 
 
@@ -325,23 +381,26 @@ class Game {
 
     _setStats() {
 
-
+        console.log('hello')
         const timeCounter = document.getElementById("time-counter");
 
         if (this.counter > 0) {
 
-            timeCounter.innerHTML = "Time: " + this.counter;
+            timeCounter.innerHTML = "Time: 00:" + convertTimeCounterToDisplayedValue(this.counter);
 
             setTimeout(function () {
-                this.counter--;
-                this._setStats();
+                if (this.gameState === gameState.GAME) {
+                    this.counter--;
+                    console.log('counter')
+                    this._setStats();
+                }
             }.bind(this), 1000);
 
 
 
         } else {
-            this.counter = 45;
-            this._endGame();
+            this.counter = gameTimeOut;
+            this._endGame(gameState.TIMEOUT);
         }
     };
 
@@ -355,18 +414,16 @@ class Game {
 
 const game = new Game();
 
-$('.start-game').click(function () {
+
+$('#start-button').click(function () {
+    console.log('start-button')
     game.init();
-    console.log('start-game')
+
 });
 
 $('.restart-game').click(function () {
     game._reset();
 });
-
-// $('.finish-game').click(function () {
-//     game._finish();
-// });
 
 
 game.element.cards.click(function () {
@@ -378,7 +435,7 @@ game.element.cards.click(function () {
 
 
 
-$("#card").flip({
-    trigger: 'click'
-});
-$("#card").flip('toggle');
+// $("#card").flip({
+//     trigger: 'click'
+// });
+// $("#card").flip('toggle');
