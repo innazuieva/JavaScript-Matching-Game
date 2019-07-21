@@ -1,7 +1,8 @@
 // General Resets
 
+
 // Box Sizing Reset
-html {
+* {
     box-sizing: border-box;
 }
 
@@ -15,6 +16,7 @@ html {
 img {
     max-width: 100%;
     height: auto;
+    object-fit: contain;
 }
 
 // Remove Margins on the body and elements

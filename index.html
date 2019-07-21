@@ -20,12 +20,58 @@
 
 
 
+    <div class="pop-up-screen">
+        <div id="start-game" class="pop-up start-game">
+            <div class="pop-up-content">
+                <h1>Let's play a matching game! You have 45 seconds to match all cards.</h1>
+                <div class="buttons-start-finish">
+                    <button class="start-game">Start</button>
+                    <button class="finish-game">Finish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pop-up-screen">
+        <div id="win" class="pop-up win">
+            <div class="pop-up-content">
+                <h1>Congratulations, you won!</h1>
+                <div class="buttons-start-finish">
+                    <button class="restart-game">Restart</button>
+                    <button class="finish-game">Finish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pop-up-screen">
+        <div id="time-is-out" class="pop-up time-is-out">
+            <div class="pop-up-content">
+                <h1>Time is out.</h1>
+                <div class="buttons-start-finish">
+                    <button class="restart-game">Restart</button>
+                    <button class="finish-game">Finish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
 
     <!---------------------- Game Board ------------------------->
-    <video src="images/background-moving.mov" autoplay poster="#0"></video>
+    <!-- <video src="images/background-moving.mov" autoplay poster="#0"></video> -->
 
     <div class="game-board">
 
+
+        <!---------------------- Stats ------------------------->
+
+        <div class="stats">
+            <div id="turns" class="turns">Turns: </div>
+            <div id="time-counter" class="time-counter">Time: </div>
+        </div>
 
 
         <!------------------------- Row 1 ------------------------->
@@ -154,8 +200,22 @@
 
 
 
+        <!-- <div id="card">
+            <div class="front">
+                Front content
+            </div>
+            <div class="back">
+                Back content
+            </div>
+        </div> -->
+
+
+
+
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <!-- <script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
+        <script src="scripts/flip.js"></script> -->
         <script src="scripts/scripts.js"></script>
 </body>
 

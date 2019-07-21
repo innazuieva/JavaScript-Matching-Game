@@ -12,6 +12,7 @@ class Card {
         this.alt = name;
         this.number = number;
     }
+
 }
 
 // Create 12 instances of the card class
@@ -65,6 +66,7 @@ class Game {
         this.clickCounter = 0;
         this.matches = 0;
         this.winningMatches = this.element.cards.length / 2;
+        this.counter = 45;
     }
 
 
@@ -106,6 +108,7 @@ class Game {
 
     init() {
         this._placeCards(this.cards, this.element.cards);
+        this._setStats();
     }
 
 
@@ -154,6 +157,7 @@ class Game {
     _isMatched(card1, card2) {
 
         if (card1.data('number') === card2.data('number')) {
+            console.log(card2.data('number'));
             console.log("Cards matched with number: " + card2.data('number'));
             card1.addClass('matched');
             card2.addClass('matched');
@@ -164,7 +168,7 @@ class Game {
 
             if (this.matches === this.winningMatches) {
 
-                this._endGame();
+                this._win();
                 return; //Not to execute anything else
             }
 
@@ -196,17 +200,34 @@ class Game {
     _endGame() {
 
         setTimeout(function () {
-            alert('Congratulations! You won!!!');
-        }, 500);
-        const restart = function () {
-            alert("Restart the Game?");
-            console.log(this);
-            this._reset();
-        };
-        const restartBindedToGame = restart.bind(this);
-        setTimeout(restartBindedToGame, 2000);
+            $('#time-is-out').addClass('show');
+        }, 800);
+
+
+
+        // const restart = function () {
+        //     alert("Restart the Game?");
+        //     console.log(this);
+        //     this._reset();
+        // };
+        // const restartBindedToGame = restart.bind(this);
+        // setTimeout(restartBindedToGame, 2000);
         //eto pisec!!!!!!!
     }
+
+
+
+
+    //------------------------------ Win Function ---------------------------
+
+
+    _win() {
+
+        setTimeout(function () {
+            $('#win').addClass('show');
+        }, 800);
+    }
+
 
 
     //--------------------------------- Reset -----------------------------------
@@ -233,6 +254,18 @@ class Game {
         this.init();
 
     }
+
+
+
+
+    //--------------------------------- Finish -----------------------------------
+
+
+    // _finish() {
+
+    // }
+
+
 
 
     //----------------------------- Place Cards on GameBoard ------------------------
@@ -285,6 +318,33 @@ class Game {
         return cards;
     }
 
+
+
+    //------------------------------ Set Stats Function ------------------------
+
+
+    _setStats() {
+
+
+        const timeCounter = document.getElementById("time-counter");
+
+        if (this.counter > 0) {
+
+            timeCounter.innerHTML = "Time: " + this.counter;
+
+            setTimeout(function () {
+                this.counter--;
+                this._setStats();
+            }.bind(this), 1000);
+
+
+
+        } else {
+            this.counter = 45;
+            this._endGame();
+        }
+    };
+
 }
 
 
@@ -295,13 +355,30 @@ class Game {
 
 const game = new Game();
 
-game.init();
+$('.start-game').click(function () {
+    game.init();
+    console.log('start-game')
+});
 
-// $('#temp').click(function(){
-//     game.init();
+$('.restart-game').click(function () {
+    game._reset();
+});
+
+// $('.finish-game').click(function () {
+//     game._finish();
 // });
+
 
 game.element.cards.click(function () {
     console.log("Clicked card: " + $(this));
     game.handleClickedCard($(this));
 });
+
+
+
+
+
+$("#card").flip({
+    trigger: 'click'
+});
+$("#card").flip('toggle');
