@@ -53,7 +53,7 @@ const gameState = {
 
 const gameTimeOut = 35;
 
-
+console.log("Check audio start");
 const musicForGame = new Audio("../JavaScript-Matching-Game/water-bubbles.mp3");
 musicForGame.loop = true;
 const musicPlayPromise = musicForGame.play();
